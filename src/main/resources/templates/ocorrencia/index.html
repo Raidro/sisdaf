@@ -1,0 +1,116 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>REGISTRO DE OCORRENCIA</title>
+        <link rel="stylesheet" th:href="@{/css/fontawesome.css}">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    </head>
+    <body>
+        <div class="container-fluid" style="margin-top: 50px;">
+            <fieldset>
+                <legend>REGISTRO DE OCORRENCIA</legend>
+                <div class="row">
+                    <div class="col-6">
+                        <form method="post" th:object="${ocorrencia}" th:action="@{/ocorrencias}">
+                            <input type="hidden" th:field="*{id}">
+                            <div class="form-group">
+                                <label for="data">Data</label>
+                                <input type="date" id="data" th:field="*{data}" class="form-control" autocomplete="off" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="hora">Hora</label>
+                                <input type="time" id="hora" th:field="*{hora}" class="form-control" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="local">Local</label>
+                                <input type="text" id="local" th:field="*{local}" class="form-control" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="quantidade">Quantidade</label>
+                                <input type="text" id="quantidade" th:field="*{quantidade}" class="form-control" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="opm">OPM</label>
+                                <select id="opm" th:field="*{opm}" class="form-control">
+                                    <option th:each="opm : ${opms}" th:value="${opm.id}" th:text="${opm.sigla}"></option>
+                                </select>
+                            </div>                                                    
+                            
+                            <div class="form-group">
+                                <label for="policial">Policial</label>
+                                <select id="policial" th:field="*{policial}" class="form-control">
+                                    <option th:each="policial : ${policiais}" th:value="${policial.id}" th:text="${policial.nome}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="arma">Arma</label>
+                                <select id="arma" th:field="*{arma}" class="form-control">
+                                    <option th:each="arma : ${armas}" th:value="${arma.id}" th:text="${arma.serial}"></option>
+                                </select>
+                            </div>                             
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            <i class="fas fa-save"></i> Salvar
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="reset" class="btn btn-danger btn-block">
+                                            <i class="fas fa-eraser"></i> Limpar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-6">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                
+                                <th>Data</th>
+                                <th>Hora</th>
+                                <th>Local</th>
+                                <th>Quantidade</th> 
+                                <th>OPM</th>
+                                <th>Policial</th>                               
+                                <th>Arma</th> 
+                                <th>Ações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="ocorrencia : ${ocorrencias}">
+                                <td th:text="${ocorrencia.id}"></td>
+                                <td th:text="${ocorrencia.data}"></td>
+                                <td th:text="${ocorrencia.hora}"></td>
+                                <td th:text="${ocorrencia.local}"></td>
+                                <td th:text="${ocorrencia.quantidade}"></td>
+                                <td th:text="${ocorrencia.opm.sigla}"></td>
+                                <td th:text="${ocorrencia.policial.nome}"></td>
+                                <td th:text="${ocorrencia.arma.serial}"></td>                                  
+                                <td>
+                                    <a class="btn btn-success btn-sm"
+                                       th:href="@{/ocorrencias/{id}/edita(id=${ocorrencia.id})}">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-sm"
+                                       th:href="@{/ocorrencias/{id}/remove(id=${ocorrencia.id})}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <script th:src="@{/js/jquery.js}"></script>
+        <script th:src="@{/js/popper.js}"></script>
+        <script th:src="@{/js/fontawesome.js}"></script>
+        <script th:src="@{/js/bootstrap.js}"></script>
+    </body>
+</html>

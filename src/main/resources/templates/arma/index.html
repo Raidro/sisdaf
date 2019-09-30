@@ -1,0 +1,96 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>REGISTRO DE ARMAS</title>
+        <link rel="stylesheet" th:href="@{/css/fontawesome.css}">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    </head>
+    <body>
+        <div class="container-fluid" style="margin-top: 50px;">
+            <fieldset>
+                <legend>REGISTRO DE ARMAS</legend>
+                <div class="row">
+                    <div class="col-6">
+                        <form method="post" th:object="${arma}" th:action="@{/armas}">
+                            <input type="hidden" th:field="*{id}">
+                            <div class="form-group">
+                                <label for="serial">Serial</label>
+                                <input type="text" id="serial" th:field="*{serial}" class="form-control" autocomplete="off" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="tombamento">Tombamento</label>
+                                <input type="text" id="tombamento" th:field="*{tombamento}" class="form-control" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="modelo">Modelo</label>
+                                <select id="modelo" th:field="*{modelo}" class="form-control">
+                                    <option th:each="modelo : ${modelos}" th:value="${modelo.id}" th:text="${modelo.nome}"></option>
+                                </select>
+                            </div> 
+                            <div class="form-group">
+                                <label for="opm">OPM</label>
+                                <select id="opm" th:field="*{opm}" class="form-control">
+                                    <option th:each="opm : ${opms}" th:value="${opm.id}" th:text="${opm.sigla}"></option>
+                                </select>
+                            </div>                            
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            <i class="fas fa-save"></i> Salvar
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="reset" class="btn btn-danger btn-block">
+                                            <i class="fas fa-eraser"></i> Limpar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-6">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                
+                                <th>Serial</th>
+                                <th>Tombamento</th>
+                                <th>Modelo</th>
+                                <th>OPM</th>
+
+                                <th>Ações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="arma : ${armas}">
+                                <td th:text="${arma.id}"></td>
+                                <td th:text="${arma.serial}"></td>
+                                <td th:text="${arma.tombamento}"></td>
+                                <td th:text="${arma.modelo.nome}"></td>
+                                <td th:text="${arma.opm.sigla}"></td>                                
+                                <td>
+                                    <a class="btn btn-success btn-sm"
+                                       th:href="@{/armas/{id}/edita(id=${arma.id})}">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-sm"
+                                       th:href="@{/armas/{id}/remove(id=${arma.id})}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <script th:src="@{/js/jquery.js}"></script>
+        <script th:src="@{/js/popper.js}"></script>
+        <script th:src="@{/js/fontawesome.js}"></script>
+        <script th:src="@{/js/bootstrap.js}"></script>
+    </body>
+</html>

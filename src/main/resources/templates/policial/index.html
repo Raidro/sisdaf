@@ -1,0 +1,97 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Policiais Militares</title>
+        <link rel="stylesheet" th:href="@{/css/fontawesome.css}">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    </head>
+    <body>
+        <div class="container-fluid" style="margin-top: 50px;">
+            <fieldset>
+                <legend>Policiais Militares</legend>
+                <div class="row">
+                    <div class="col-6">
+                        <form method="post" th:object="${policial}" th:action="@{/policiais}">
+                            <input type="hidden" th:field="*{id}">
+                            <div class="form-group">
+                                <label for="matricula">Matricula</label>
+                                <input type="text" id="matricula" th:field="*{matricula}" class="form-control" autocomplete="off" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                                <input type="text" id="nome" th:field="*{nome}" class="form-control" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="cpf">CPF</label>
+                                <input type="text" id="cpf" th:field="*{cpf}" class="form-control" autocomplete="off" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="cargo">Cargo</label>
+                                <input type="text" id="cargo" th:field="*{cargo}" class="form-control" autocomplete="off" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="opm">OPM</label>
+                                <select id="opm" th:field="*{opm}" class="form-control">
+                                    <option th:each="opm : ${opms}" th:value="${opm.id}" th:text="${opm.sigla}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            <i class="fas fa-save"></i> Salvar
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="reset" class="btn btn-danger btn-block">
+                                            <i class="fas fa-eraser"></i> Limpar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-6">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Matricula</th>
+                                    <th>Nome</th>
+                                    <th>CPF</th>
+                                    <th>Cargo</th>
+                                    <th>OPM</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="policial : ${policiais}">
+                                    <td th:text="${policial.matricula}"></td>
+                                    <td th:text="${policial.nome}"></td>
+                                    <td th:text="${policial.cpf}"></td>
+                                    <td th:text="${policial.cargo}"></td>
+                                    <td th:text="${policial.opm.sigla}"></td>
+                                    <td>
+                                        <a class="btn btn-success btn-sm"
+                                        th:href="@{/policiais/{id}/edita(id=${policial.id})}">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-sm"
+                                        th:href="@{/policiais/{id}/remove(id=${policial.id})}">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <script th:src="@{/js/jquery.js}"></script>
+        <script th:src="@{/js/popper.js}"></script>
+        <script th:src="@{/js/fontawesome.js}"></script>
+        <script th:src="@{/js/bootstrap.js}"></script>
+    </body>
+</html>
