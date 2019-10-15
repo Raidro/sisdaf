@@ -17,12 +17,6 @@ public class Ocorrencia extends AuditedEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(name="oco_data")
-//    private Date data;
-//
-//    @Column(name="oco_hora")
-//    private Time hora;
-
     @Column(name="oco_data")
     private String data;
 

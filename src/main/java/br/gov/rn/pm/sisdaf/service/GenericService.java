@@ -19,8 +19,9 @@ public abstract class GenericService<T extends AuditedEntity> {
         return repository.findById(id).get();
     }
 
-    public void salva(T t){
-        repository.save(t);
+    public T salva(T t){
+        return repository.save(t);
+
     }
 
     public void removePorId(Long id) {
